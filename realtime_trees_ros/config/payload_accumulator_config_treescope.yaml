@@ -1,0 +1,20 @@
+payload_accumulator:
+  ros__parameters:
+    accumulation:
+      type: "distance" # Type of accumulation: "distance", "time", or "both". If "both" is chosen whichever criterion triggers first is used
+      distance: 20.0 # Distance threshold for accumulation (if accumulation_type is "distance")
+      time: 20.0 # Time threshold for accumulation in seconds (if accumulation_type is "time")
+    
+    topics:
+      pointcloud_topic: "/cloud_registered_body" # Topic name for point cloud input (must be in sensor frame)
+      odometry_topic: "/Odometry" # Topic name for odometry input
+      posegraph_topic: "/pose_graph" # Topic name for emulated posegraph output. If kept empty, you need to provide your own posegraph as a nav_msgs/Path message.
+    
+    frames:
+      sensor_frame_id: "body" # Frame ID of the sensor (point cloud frame)
+      odom_frame_id: "odom" # Frame ID of the odometry (odom frame)
+      map_frame_id: "quadrotor/map" # Frame ID of the map (global frame)
+    
+    processing:
+      voxel_size: 0.05 # Voxel size for downsampling the input point cloud in meters (was voxel_downsample_res)
+      posegraph_interval: 0.5 # Interval in seconds where odometry messages are inserted into the pose graph buffer

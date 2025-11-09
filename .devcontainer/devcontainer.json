@@ -1,0 +1,19 @@
+{
+  "name": "ROS 2 Realtime Trees Docker",
+  "dockerComposeFile": [
+    "../docker/docker-compose.yml"
+  ],
+  "service": "realtime_trees_ros2",
+  "workspaceFolder": "/ament_ws",
+  "shutdownAction": "stopCompose",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-iot.vscode-ros",
+        "ms-python.python",
+        "ms-vscode.cmake-tools",
+        "ms-vscode.cpptools"
+      ]
+    }
+  }
+}

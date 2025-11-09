@@ -1,0 +1,42 @@
+/**:
+  ros__parameters:
+    debug_level: 0
+
+    frames:
+      base_frame_id: "body"
+      odom_frame_id: "camera_init"
+      map_frame_id: "camera_init"
+
+    tree_manager:
+      distance_threshold: 0.5 # tree trunks closer than this are considered belonging to the same tree
+      reco_min_angle_coverage: 90.0 # minimum angle coverage for a tree to be reconstructed
+      reco_min_distance: 3.0 # minimum distance the sensor must have had to the tree for it to be reconstructed
+
+    terrain:
+      smoothing: False # apply CSF smoothing to the terrain model
+      cell_size: 1 # size of the cloth cells in meters
+      confidence_stds: [3, 10, 10] # dimensions of ellipsoid behind sensor where confidence about measuring the ground is high (aligned with sensor axes)
+      confidence_sensor_weight: 0.9999 # weighting the C1-continuous interpolation and the sensor model (1.0: sensor only, 0.0: L1 only)
+      use_embree: True # if available, this makes terrain merging much faster
+
+    clustering:
+      crop_radius: 20.0 # radius around the sensor where points are considered 
+      crop_bounds: "[[0.5, 1.5], [2, 3], [4, 5]]" # bounds between which the point cloud is cropped to search for trunks
+      max_cluster_radius: 3.0 #  maximum radius of a cluster in m. This should be greater than the expected canopy radius
+      n_threads: 8 # threads to use for clustering
+      distance_calc_point_fraction: 0.1 # fraction of points to be used to calculate precise distances to tree axes. The rest of the points inherits the distance of the closest point
+      normal_thr: 0.5 # normal threshold used for filtering out the ground
+      voxel_size: 0.05 # voxel size for downsampling the input point cloud in m.
+
+    fitting:
+      max_height: 20.0 # trees are attempted to be reconstructed until this height in m
+      slice_heights: 1.0 # interval for slicing the point cloud in m
+      slice_thickness: 0.3 # thickness of a slice
+      max_center_deviation: 0.1 # maximum deviation of a circle's center in m from the previous circle centers. 
+      max_diameter: 0.75 # maximum diameter of a tree in m
+      filter_radius: 0.1 # points further away from a circle fit than this are considered outliers
+      max_consecutive_fails: 5 # when failing at more consecutive heights than this, the reconstruction is cancelled
+      generate_canopy: True # whether to generate a canopy mesh
+
+    output:
+      path: "/tmp/realtime_trees"

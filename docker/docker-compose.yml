@@ -1,0 +1,27 @@
+version: "3.9"
+services:
+  realtime_trees_ros2:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+      target: dev
+      args:
+        - AMENT_WORKSPACE_DIR=${AMENT_WORKSPACE_DIR}
+        - USERNAME=${USERNAME:-developer}
+        - UID=${UID}
+        - GID=${GID}
+        - PAT=${PAT}
+    container_name: digiforest_ros2
+    environment:
+     - DISPLAY=${DISPLAY}
+     - QT_X11_NO_MITSHM=1
+    image: realtime_trees_ros2:devel
+    network_mode: "host"
+    tty: true
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - /tmp/.docker.xauth:/tmp/.docker.xauth:rw
+      - /media:/media
+      - ../realtime_trees:${AMENT_WORKSPACE_DIR}/src/realtime-trees/realtime_trees
+      - ../realtime_trees_msgs:${AMENT_WORKSPACE_DIR}/src/realtime-trees/realtime_trees_msgs
+      - ../realtime_trees_ros:${AMENT_WORKSPACE_DIR}/src/realtime-trees/realtime_trees_ros
