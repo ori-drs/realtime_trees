@@ -835,9 +835,6 @@ class RealtimeTrees(Node):
         secs, nsecs = stamp_now.seconds_nanoseconds()
         path = os.path.join(
             self.base_output_path,
-            "trees",
-            "logs",
-            "raw",
             f"tree_manager_{secs}_{nsecs:0>9}",
         )
         for tree in self._tree_manager.trees:
