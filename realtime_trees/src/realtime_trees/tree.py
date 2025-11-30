@@ -42,7 +42,7 @@ class Tree:
         self.circles: List[Circle] = None
         self.canopy_mesh = None
 
-        self.clusters = []
+        self.clusters: List[Cluster] = []
 
         self.num_clusters_after_last_reco = 0
         self.cosys_changed_after_last_reco = False
